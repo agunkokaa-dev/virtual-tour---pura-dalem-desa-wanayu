@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * ============================================================================
+ * CATATAN KEAMANAN & SENSOR (HTTPS REQUIREMENT)
+ * ============================================================================
+ * Browser modern (Chrome, Safari, Firefox) MEMBLOKIR akses ke sensor
+ * gyroscope, accelerometer, dan magnetometer jika halaman TIDAK dimuat
+ * melalui HTTPS (atau localhost).
+ *
+ * WAJIB deploy ke server HTTPS untuk produksi agar:
+ * - WebXR/VR mode bisa aktif
+ * - Sensor giroskop HP berfungsi (penting untuk VR Box / Cardboard)
+ * - DeviceOrientation event tidak diblokir
+ *
+ * Untuk iOS Safari: pengguna perlu tap tombol izin sensor secara manual
+ * karena Apple memerlukan user gesture untuk DeviceOrientationEvent.
+ * ============================================================================
+ */
+
+/* ===== Base Styles ===== */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    background-color: #082f49;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  /* Scrollbar kustom untuk panel info */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(52, 211, 153, 0.4);
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(52, 211, 153, 0.6);
+  }
+}
+
+/* ===== Component Styles ===== */
+@layer components {
+  /* Glassmorphism card base */
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl;
+  }
+
+  .glass-card-dark {
+    @apply bg-black/30 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  /* Tombol eksplorasi utama */
+  .btn-explore {
+    @apply px-4 py-3 rounded-xl font-medium text-sm transition-all duration-300 ease-out
+           flex items-center gap-3 w-full text-left;
+  }
+
+  .btn-explore:hover {
+    @apply bg-white/15 scale-[1.02] shadow-lg;
+  }
+
+  .btn-explore:active {
+    @apply scale-[0.98];
+  }
+
+  .btn-explore.active {
+    @apply bg-gradient-to-r from-emerald-500/30 to-cyan-500/20
+           border border-emerald-400/40 shadow-lg shadow-emerald-500/10;
+  }
+
+  /* Tombol aksi */
+  .btn-action {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl
+           font-semibold text-sm transition-all duration-300 ease-out
+           active:scale-95;
+  }
+
+  /* Badge/tag kecil */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  /* Glow effect ring */
+  .glow-ring {
+    @apply ring-2 ring-emerald-400/50 ring-offset-2 ring-offset-transparent;
+  }
+}
+
+/* ===== Utility overrides ===== */
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  .text-shadow-md {
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ===== Custom Equalizer Wave Animations ===== */
+@keyframes wave-animation-1 {
+  0%, 100% { height: 8px; }
+  50% { height: 18px; }
+}
+
+@keyframes wave-animation-2 {
+  0%, 100% { height: 12px; }
+  50% { height: 22px; }
+}
+
+@keyframes wave-animation-3 {
+  0%, 100% { height: 6px; }
+  50% { height: 14px; }
+}
+
+@keyframes wave-animation-4 {
+  0%, 100% { height: 10px; }
+  50% { height: 20px; }
+}
+
+.animate-wave-1 {
+  animation: wave-animation-1 1.2s ease-in-out infinite;
+}
+.animate-wave-2 {
+  animation: wave-animation-2 0.8s ease-in-out infinite;
+}
+.animate-wave-3 {
+  animation: wave-animation-3 1.5s ease-in-out infinite;
+}
+.animate-wave-4 {
+  animation: wave-animation-4 1.0s ease-in-out infinite;
+}
+
